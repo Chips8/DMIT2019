@@ -1,0 +1,11 @@
+CREATE table test(test_column_one NUMBER(2,0));
+DESC test;
+SELECT table_name FROM user_Tables;
+INSERT INTO test(test_column_one) VALUES(2);
+SELECT test_column_one FROM test;
+DELETE FROM test;
+DROP TABLE test;
+
+-->Database is functional
+#1 buy course pack
+#2 buy and print SQL notes
