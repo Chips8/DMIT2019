@@ -1,0 +1,22 @@
+Create Table MM_Student
+(
+SID Number(8,0) Constraint PK_MMstudent_SID primary key
+		Constraint NN_MMStudent_SID Not Null,
+SName VarChar2(50) Default ('UNKNOWN')
+		Constraint NL_MMStudent_SName Null,
+Gender Char(1) Constraint CK_MMStudent_Gender_MFN
+		Check( Gender IN ('M','F','N'))
+		Constraint NN_MMStudent_Gender Not Null,
+EDate Date Default Sysdate
+	Constraint NN_MMStudent_EDate not null
+);
+
+30% is foreign keys
+Table constraints IF you have to.
+Realistically, they're both legal, but it's better to do Column then Table Constraints.
+Table you have to tell WHAT column you are doing the constraint on.
+**A column can see itself, if you have constraint with multiple COLUMNS it MUST be table constraint.
+
+Make sure it's ORACLE Create Table, it is different from SQL Create Table.
+Either it works or it doesn't.
+Create through Citrix Reciever.
