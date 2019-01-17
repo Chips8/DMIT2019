@@ -2,7 +2,7 @@ Create Table MM_Student
 (
 SID Number(8,0) Constraint PK_MMstudent_SID primary key
 		Constraint NN_MMStudent_SID Not Null,
-SName VarChar2(50) Default ('UNKNOWN')
+SName VarChar2(50) Default 'UNKNOWN'
 		Constraint NL_MMStudent_SName Null,
 Gender Char(1) Constraint CK_MMStudent_Gender_MFN
 		Check( Gender IN ('M','F','N'))
