@@ -1,0 +1,49 @@
+35-50 input lines to test Lab 1; Instructor will be using 80-96 Lines to test.
+Make sure to check right data types for lab.
+SQL developer
+Version 4 2017
+there's version 18; skips 5 - 18, naming convention is based off of year.
+
+2 char in select function and run in a function outside
+
+You need 3 Mickey Mouseset  tables or you can't test
+Build a good ERD for Lab 1, it will be used for 5 assessments.
+
+
+Do we need 20 characters per number; NO
+We only need 6.
+This is a bug, Once in a while if you have 2 column heading, first character goes on 2nd line.
+A6, characters too short; so do A8 and the headings work great
+Column headings are all double quotes " "
+If I make too short it will start word wrapping,
+make it 25 wide, if you have 256 words, say no problem make it into more lines and you won't lose any data.
+
+Instead of something 256 characters wide, we're at 96.
+What's at last column, a bit too narrow
+Should numbers be left justified or right justified.
+How do you justify column heading
+How to put space on left side of column
+
+Column headings only change headings
+Use LPAD to alter position of numbers in SELECT statement; NOT Headings
+
+Keep things simple, so he can read the results faster. No need to show him every result.
+
+Every 40 to 50 minutes, save and give version numbers, just incase.
+Github not so good on binary files.
+Just be careful using github to update binary files.
+Github is good for text files.
+Use some form of version control, back up data*.
+
+set linesize 2500
+set papersize 500
+Column Customer_Number Format A8 Heading "Customer"
+Column Names Format A20 Heading "Customer Names"
+Column Street_Address Format A25
+Column Province Format A8 Heading "Province"
+Column Membership_Date Heading "Membership|Date"
+Column Current_Status_YN Format A7 "Current|Status|YN" Justify Right
+Select Customer_Number, First_name || ", " || Last_Name "Names", Street_Address,
+Province, Postal_Code, Membership_Date, LPAD(Current_Status_YN, 6) "Current_Status_YN"
+From Customer;
+Where Customer_Number < 400;
