@@ -1,4 +1,4 @@
-35-50 input lines to test Lab 1; Instructor will be using 80-96 Lines to test.
+35-50 input lines to test Lab 1; Instructor will be using 80-96 Lines to test Lab1.
 Make sure to check right data types for lab.
 SQL developer
 Version 4 2017
@@ -47,3 +47,13 @@ Select Customer_Number, First_name || ", " || Last_Name "Names", Street_Address,
 Province, Postal_Code, Membership_Date, LPAD(Current_Status_YN, 6) "Current_Status_YN"
 From Customer;
 Where Customer_Number < 400;
+
+What does the A20 means?
+A justifies how many characters per line.
+The | pushes it one line down.
+
+What does Justify Right do?
+Just to shift the heading to the right for  visual purposes, Defaults to the left.
+What does the || mean?
+Is an encatanation: used to link things together.
+
