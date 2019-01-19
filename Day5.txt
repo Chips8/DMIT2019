@@ -57,3 +57,9 @@ Just to shift the heading to the right for  visual purposes, Defaults to the lef
 What does the || mean?
 Is an encatanation: used to link things together.
 
+Why do we have to set linesize and papersize?
+You don't have to, but it's easier for displaying and printing.
+As linesize defualt is 80 and papersize is 66.
+
+
+
