@@ -1,0 +1,92 @@
+Triggers
+used for? 
+- Data integrity, what is Data integrity? You can create a data base with no primary keys or foreign keys.
+Table constraint can't see column in another table, can only see in that column.
+If you want to see another table, you have to have a Trigger.
+Trigger can see whole data base; used to see multiple tables.
+Auditing for a Database, who does what when, who changed the salary, what type of salaray did they change. 
+How many times they do update, insert, or delete.
+Database Triggers executes: INSERTS, UPDATES, and DELETES, there is a lot more.
+Can fire before or after the event, once through event or row level if 10 rows = fire 10 times. Fires once per row.
+Microsoft tells you which record has issue but you have to deal with all at once.
+What curly braces mean CHOOSE {OPTION1|OPTION2}, Update is special because you can only update partial, when doing Insert, you have to insert complete record.
+Or Delete, you have to delete whole record.
+FOREACH row = statement triggers, row level and statement level.
+Declare and local variables, Begin your code and end.
+No COMMITS, No ROLLBACKS.
+Doing SELECT STATEMENT Don't do it on row where it triggers on.
+Trigger on MM_STUDENT, check after row happened, try to do a select before or after, it will blow up. Some times you do it, some times you don't.
+Slide 11 = important, circle red.
+Virtual Tables: Insert and Delete.
+Oracles :NEW, says new values which is insert, so :NEW = something in it and :OLD is empty
+:OLD, says OLD VALUES and :NEW is empty
+
+MUST BE A ROW TRIGGER to look at :OLD and :NEW.
+Order in which order Triggers fire.
+#1 and #3 both happens once, Delete from MM_GRADE and execute, do you have a before statement trigger, #2 is a loop, 
+Table constraints is done before the Triggers fire, it will activate the Table constraints first and the Trigger doesn't even fire.
+Cycles through level A-F until goes through ALL DATA.
+ORDER MATTERS
+MEMORIZE AND UNDERSTAND Order of Firing, why they fire and which ORDER they fire.
+Before or After, Row or Statement Trigger; Four possibilities, need to figure which one.
+BEFORE DMIT used to be IST.IST becomes obselete, and need to keep the historical data, so what do you do?
+Use a Trigger to block courses being entereed in as IST in courses, then you don't have to delete all data in tables to change constraint, you stop data from entering table.
+
+INSERT INTO MM_GRADE
+(SID, CID, MARK)
+
+VALUES
+(123456, 'IST431',99);
+
+Both FKs exists. Do we want to stop it in business purposes? YES
+
+Virtual tables look like
+:OLD and :NEW has exact same structure, Virtual records change any time you create INSERT or Trigger on a different table.
+So Columns both exist no matter what, just in INSERT so :OLD (SID: NULL, CID:NULL, MARK: NULL)
+:NEW(SID:123456, CID:IST431, MARK:99)
+So :OLD and :NEW populate no matter what what's executed. 
+
+Can we write this as an AFTER Trigger? Does it have to be a BEFORE? Stop something, make it a BEFORE, is that always the case? NO.
+:OLD CID and it calls the value. Pseudo table, kind of a table, but kind of not a table, ORACLE you CAN'T SELECT or UPDATE from them, but you can assign it; they are virtual records.
+:NEW or :OLD HAS to be ROW LEVEL Trigger
+Database does not allow ROLLBACK.
+
+CREATE or REPLACE TRIGGER TR_BIR_MMGRADE_STOP_IST_COURSE
+BEFORE INSERT OR UPDATE OF CID
+ON MM_GRADE
+
+BEGIN
+	IF UPPER(:NEW.CID) LIKE 'IST%' THEN
+		RAISE_APPLICATION_ERROR(-20001, 'TRIGGER TR_, Cannot Insert IST into CID; They are no longer valid.')'
+	END IF;
+END TR_BIUR_MMGRADE_STOP_IST_CID;
+/
+SHOW ERRORS;
+:NEW is what it's GOING to BE; what it's NEW value going to be set AS.
+
+Whatever doing outside, don't do inside, or else you will create an INFINITE Loop.
+
+If we didn't USE SELECT INTO then we CANNOT use EXCEPTIONS.
+How would a HACKER get past this? An UPDATE statement.
+
+Only want trigger to fire if you are manipulating CID, so we use UPDATE OF CID.
+
+INSERT INTO MM_GRADE
+(SID, CID, MARK)
+
+VALUES
+(123456, 'DMIT2019',99);
+
+UPDATE MM_GRADE
+SET CID = 'IST431'
+WHERE CID = 'DMIT2019' AND
+SID = 123456;
+
+:OLD 
+(SID: 123456, CID: DMIT2019, MARK:99 )
+
+Is there any other conditions where it is a ROW Trigger? NOPE, only when you are dealing with :NEW and :OLD.
+
+
+:NEW
+(SID: 123456, CID: IST431, MARK:99 )

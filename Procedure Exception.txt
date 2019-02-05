@@ -1,0 +1,78 @@
+update mark in grade table
+IN:
+SID
+CID
+Marks
+
+
+CREATE OR REPLACE Procedure PR_UPDATE_Mark1
+(P_SID Number, P_CID Char, P_Mark Number)
+AS
+BEGIN
+	UPDATE MM_GRADE
+	SET MARK = P_MARK
+	WHERE SID = P_SID AND
+	CID = P_CID;
+END PR_UPDATE_MARK1;
+/
+SHOW ERRORS;
+
+Will say updated 0 records, if issue.
+
+
+CREATE OR REPLACE Procedure PR_UPDATE_Mark2
+(P_SID Number, P_CID Char, P_Mark Number)
+AS
+	V_Mark Number(5,2);  E_BAD_MARK EXCEPTION;
+	//V_Mark Number this is legal but will give you 18 digits.
+BEGIN
+	IF V_Mark BETWEEN 0 AND 100 THEN
+
+	Select Mark
+	INTO V_Mark
+	WHERE SID = P_SID AND
+	CID = P_CID;
+
+	UPDATE MM_GRADE
+	SET MARK = P_MARK
+	WHERE SID = P_SID AND
+	CID = P_CID;
+ELSE
+	RAISE E_BAD_MARK;
+END IF;
+	
+	
+EXCEPTION
+	WHEN E_BAD_MARK THEN
+	RAISE_APPLICATION_ERROR(-20143, 'Procedure PR_UPDATE_Mark2, MARK not between 0 and 100.');	
+	
+	WHEN NO_DATA_FOUND THEN
+	RAISE_APPLICATION_ERROR(-20000, 'Procedure PR_UPDATE_Mark2, could not Update Mark AS provided SID and CID was not found.');
+
+	WHEN OTHERS THEN	
+	RAISE_APPLICATION_ERROR(-20001, 'Procedure PR_UPDATE_Mark2, PLEASE CALL TECH SUPPORT, ERROR was not caught before hand.');
+
+END PR_UPDATE_MARK2;
+/
+SHOW ERRORS;
+
+
+USER ERRORS:
+done in 3 ways
+DECLARE
+RAISE 
+HANDLE
+
+OTHERS has to be the last one.
+
+Set aside 1000 numbers for users to put out custom message, doesn't do anything internally.
+2 Primary keys, never multiple rows.
+You could use same error message number.
+
+Catch firing constraints, to verify constraint is working properly.
+PRAGMA EXCEPTION INIT(E_Good_Check_Constraint, -2290);
+You assign your own message to error number.
+Oracle error numbers, nothing to do with -20000 to - 20999.
+Different way of catching exceptions.
+
+Using Select statement to trigger Exeption; for UPDATE and DELETE methods.
