@@ -1,0 +1,33 @@
+Where CLAUSE only 1 or 2 records to show
+
+
+Triggers
+
+The system is in control of firing it.
+You can't execute it, the system executes it.
+
+Trigger to stop weekend enrollments,
+inserts into MM_STudent;no inserts into student table
+IN gives you multiple distinct values
+
+CREATE OR REPLACE TRIGGER TR_BIS_MMSTUDENT_NO_WKND_ENROL
+BEFORE INSERT
+ON MM_STUDENT
+BEGIN
+	IF TO_CHAR(SYSDATE,'Dy') IN ('Sat','Sun') THEN
+		RAISE_APPLICATION_ERROR(-20001, 'Cannot insert on the weekends');
+	END IF;
+END TR_BIS_MMSTUDENT_NO_WKND_ENROL;
+/
+SHOW ERRORS;
+
+
+
+CREATE TRIGGER TR_D
+Before Delete
+On MM_GRADE
+Begin
+	DBMS_OUPUT.PUT_LINE('')
+END TRIGGER TR_D;
+/
+SHOW ERRORS:
